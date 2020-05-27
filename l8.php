@@ -64,8 +64,6 @@ $query = "select * from `connection` where `addr`=:addr and `proxy`=:proxy and `
     $stmt = $db->prepare($query);
     $stmt->execute();
     echo "<table><tr><th>count</th><th>address</th><th>proxy</th><th>forwarded</th></tr>";
-    unset($_SESSION['graph']);
-    $_SESSION['count']=0;
     while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         $cr=rand(0,255);
         $cg=rand(0,255);
@@ -77,9 +75,6 @@ $query = "select * from `connection` where `addr`=:addr and `proxy`=:proxy and `
         '<td>'.$row['proxy'].'</td>'.
         '<td>'.$row['forwarded'].'</td>'.
         "</tr>";
-        $_SESSION['count']+=$row['count'];
-        $_SESSION['graph'][]= array($row['count'],$cr,$cg,$cb);
-        // $_SESSION['graph'][]= array($row['count'],$row['addr'],$row['proxy'],$row['forwarded'],$cr,$cg,$cb);
     }
     echo "</table>";
 
